@@ -25,7 +25,7 @@ require('telescope').load_extension('neoclip')
 
 require('neogit').setup {
   integrations = {
-    diffview = true 
+    diffview = true
   },
 }
 
