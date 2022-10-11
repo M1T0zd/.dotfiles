@@ -2,7 +2,7 @@ require("main.set")
 require("main.remap")
 require("main.packer")
 require("main.theme")
-
+require("main.lsp")
 
 -- SETUP --
 require('telescope').setup {
@@ -21,3 +21,11 @@ require('telescope').setup {
 require("telescope").load_extension('harpoon')
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension("session-lens")
+require('telescope').load_extension('neoclip')
+
+require('neogit').setup {
+  integrations = {
+    diffview = true 
+  },
+}
+

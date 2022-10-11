@@ -2,17 +2,25 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'                               
   use("sbdchd/neoformat")
   use("TimUntersberger/neogit")
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
   use("nvim-telescope/telescope.nvim")
+  use {
+    "AckslD/nvim-neoclip.lua",
+    config = function()
+      require('neoclip').setup()
+    end,
+  }
   use("neovim/nvim-lspconfig")
   use("hrsh7th/nvim-cmp")
   use("simrat39/symbols-outline.nvim")
   use("glepnir/lspsaga.nvim")
   use("mbbill/undotree")
-  use("nvim-treesitter/nvim-treesitter", {
-      run = ":TSUpdate"
-  })
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  }
   use {
     'ThePrimeagen/harpoon',
     requires = { 'hvim-lua/plenary.nvim' }
@@ -44,7 +52,7 @@ return require('packer').startup(function(use)
     'rmagatti/session-lens',
     requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
     config = function()
-      require('session-lens').setup({--[[your custom config--]]})
+      require('session-lens').setup()
     end
   }
 end)
