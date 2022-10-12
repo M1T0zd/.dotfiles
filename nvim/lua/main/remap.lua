@@ -10,6 +10,7 @@ nnoremap("<leader>z", ":qa<CR>") -- exit nvim
 nnoremap("<leader>t", ":terminal<CR>") -- open terminal
 nnoremap("<leader>b", "<cmd>Ex<CR>") -- open Netrw
 nnoremap("<leader>g", function() require'neogit'.open({ kind = "replace" }) end)
+nnoremap("<leader>o", ":SymbolsOutline<CR>")
 
 -- telescope --
 local builtin = require('telescope.builtin')
