@@ -3,6 +3,7 @@ require("main.remap")
 require("main.packer")
 require("main.theme")
 require("main.lsp")
+require("main.treesitter")
 
 -- SETUP --
 require('telescope').setup {

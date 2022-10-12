@@ -22,12 +22,13 @@ return require('packer').startup(function(use)
   use("simrat39/symbols-outline.nvim")
   use("glepnir/lspsaga.nvim")
   use("onsails/lspkind.nvim")
-
-  use("mbbill/undotree")
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
+  use 'nvim-treesitter/nvim-treesitter-refactor'
+
+  use("mbbill/undotree")
   use {
     'ThePrimeagen/harpoon',
     requires = { 'hvim-lua/plenary.nvim' }
