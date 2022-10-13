@@ -33,24 +33,35 @@ local on_attach = function(client, bufnr)
 end
 
 -- LSPs --
+local lspconfig = require'lspconfig'
+
 local lsp_flags = {}
-require('lspconfig')['pyright'].setup{
+
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+lspconfig['pyright'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
 }
-require('lspconfig')['tsserver'].setup{
+lspconfig['tsserver'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
 }
-require('lspconfig')['rust_analyzer'].setup{
+lspconfig['rust_analyzer'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
     -- Server-specific settings...
     settings = {
       ["rust-analyzer"] = {}
     }
 }
-require'lspconfig'.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup {
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -73,21 +84,14 @@ require'lspconfig'.sumneko_lua.setup {
   },
 }
 
-
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
+--local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua' }
+--for _, lsp in ipairs(servers) do
+--  lspconfig[lsp].setup {
+--    -- on_attach = my_custom_on_attach,
+--    capabilities = capabilities,
+--  }
+--end
 
 -- luasnip setup
 local luasnip = require 'luasnip'

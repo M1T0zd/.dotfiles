@@ -1,6 +1,6 @@
+require("main.packer")
 require("main.set")
 require("main.remap")
-require("main.packer")
 require("main.theme")
 require("main.lsp")
 require("main.treesitter")
