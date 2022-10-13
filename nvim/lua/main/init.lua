@@ -8,6 +8,15 @@ require("main.treesitter")
 -- SETUP --
 require('telescope').setup {
   defaults = {
+   mappings = {
+      n = {
+    	  ['<c-d>'] = require('telescope.actions').delete_buffer
+      },
+      i = {
+        ["<C-h>"] = "which_key",
+        ['<c-d>'] = require('telescope.actions').delete_buffer
+      }
+    },
    file_ignore_patterns = {
      "node_modules", "build", "dist", "yarn.lock"
    },
@@ -30,3 +39,8 @@ require('neogit').setup {
   },
 }
 
+require('zen-mode').setup {
+  plugins = {
+    tmux = { enabled = true }
+  }
+}

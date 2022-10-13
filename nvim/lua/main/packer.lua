@@ -33,6 +33,9 @@ return require('packer').startup(function(use)
       }
     end
   }
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end}
 
   -- Telescope
   use("nvim-telescope/telescope.nvim")
@@ -58,11 +61,12 @@ return require('packer').startup(function(use)
   -- Extra
   use "folke/zen-mode.nvim"
   use {
-  "folke/twilight.nvim",
-  config = function()
-    require("twilight").setup()
-  end
-}
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup()
+    end
+  }
+  use 'ThePrimeagen/vim-be-good'
 
   -- THEME --
   use {

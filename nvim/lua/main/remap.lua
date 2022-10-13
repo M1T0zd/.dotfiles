@@ -17,6 +17,7 @@ nnoremap("<leader>i", function() require"zen-mode".toggle({
     width = .85
   }
 }) end)
+nnoremap("<leader>/", ":VimBeGood<CR>")
 
 -- telescope --
 local builtin = require('telescope.builtin')
@@ -26,7 +27,7 @@ nnoremap('fb', builtin.buffers)
 nnoremap('f/', builtin.help_tags)
 nnoremap('fh', ':Telescope harpoon marks<CR>')
 nnoremap('fs', require('session-lens').search_session)
-nnoremap('fb', ':Telescope file_browser<CR>')
+nnoremap('fe', ':Telescope file_browser<CR>')
 nnoremap('fc', ':Telescope neoclip<CR>')
 
 -- harpoon --
