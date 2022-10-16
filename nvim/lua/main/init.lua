@@ -1,6 +1,6 @@
 require("main.packer")
 require("main.set")
-require("main.remap")
+require("main.keymap")
 require("main.theme")
 require("main.lsp")
 require("main.treesitter")
@@ -41,6 +41,6 @@ require('neogit').setup {
 
 require('zen-mode').setup {
   plugins = {
-    tmux = { enabled = true }
+    tmux = { enabled = false }
   }
 }
