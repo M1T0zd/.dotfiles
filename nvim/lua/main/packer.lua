@@ -67,6 +67,7 @@ return require('packer').startup(function(use)
     end
   }
   use 'ThePrimeagen/vim-be-good'
+  use 'dstein64/vim-startuptime'
 
   -- THEME --
   use {
