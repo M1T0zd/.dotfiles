@@ -11,7 +11,6 @@ tbind('<C-k>', [[<Cmd>wincmd k<CR>]])
 tbind('<C-l>', [[<Cmd>wincmd l<CR>]])
 
 -- leader binds --
-nbind("<leader>r", ":source $MYVIMRC<CR>") -- reload nvim
 nbind("<leader>z", ":qa<CR>") -- exit nvim
 nbind("<leader>t", ":ToggleTerm direction=float<CR>") -- open terminal
 nbind("<leader>c", function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and "80" or "" end) -- toggle colorcolumn 80
@@ -27,11 +26,11 @@ nbind("<leader>i", function() require"zen-mode".toggle({
 nbind("<leader>/", ":VimBeGood<CR>")
 
 -- telescope --
-local builtin = require('telescope.builtin')
-nbind('ff', builtin.find_files)
-nbind('fg', builtin.live_grep)
-nbind('fb', builtin.buffers)
-nbind('f/', builtin.help_tags)
+local telescope_builtin = require('telescope.builtin')
+nbind('ff', telescope_builtin.find_files)
+nbind('fg', telescope_builtin.live_grep)
+nbind('fb', telescope_builtin.buffers)
+nbind('f/', telescope_builtin.help_tags)
 nbind('fh', ':Telescope harpoon marks<CR>')
 nbind('fs', require('session-lens').search_session)
 nbind('fe', ':Telescope file_browser<CR>')
