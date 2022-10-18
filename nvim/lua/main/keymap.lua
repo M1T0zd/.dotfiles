@@ -1,3 +1,4 @@
+local bind = require("main.lib.keymap").bind
 local nbind = require("main.lib.keymap").nbind
 local tbind = require("main.lib.keymap").tbind
 
@@ -6,7 +7,7 @@ nbind("<leader>z", "<cmd>qa<CR>") -- exit nvim
 nbind("<leader>c", function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and "80" or "" end) -- toggle colorcolumn 80
 nbind("<leader>b", "<cmd>Ex<CR>") -- open Netrw
 nbind("<leader>g", function() require'neogit'.open({ kind = "replace" }) end)
-nbind("<leader>o", "<cmd>SymbolsOutline<CR>")
+--nbind("<leader>o", "<cmd>SymbolsOutline<CR>")
 nbind("<leader>u", "<cmd>UndotreeToggle<CR>")
 nbind("<leader>i", function() require"zen-mode".toggle({
   window = {
@@ -53,5 +54,55 @@ nbind("<leader>[", function() harpoon_tmux.gotoTerminal(6) end)
 nbind("<leader>>", function() harpoon_tmux.gotoTerminal(7) end)
 nbind("<leader><", function() harpoon_tmux.gotoTerminal(8) end)
 
--- Code Intelligence --
+---- CODE INTELLIGENCE ----
+
+-- Diagnostics --
+nbind('<space>e', vim.diagnostic.open_float)
+nbind('[d', vim.diagnostic.goto_prev)
+nbind(']d', vim.diagnostic.goto_next)
+nbind('<space>q', vim.diagnostic.setloclist)
+
+-- LspSaga --
+
+-- Lsp finder find the symbol definition implement reference
+-- if there is no implement it will hide
+-- when you use action in finder like open vsplit then you can
+-- use <C-t> to jump back
+nbind("gh", "<cmd>Lspsaga lsp_finder<CR>")
+
+-- Code action
+bind({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+
+-- Rename
+nbind("gr", "<cmd>Lspsaga rename<CR>")
+
+-- Peek Definition
+-- you can edit the definition file in this flaotwindow
+-- also support open/vsplit/etc operation check definition_action_keys
+-- support tagstack C-t jump back
+nbind("gd", "<cmd>Lspsaga peek_definition<CR>")
+
+-- Show line diagnostics
+nbind("<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>")
+
+-- Show cursor diagnostic
+nbind("<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+
+-- Diagnsotic jump can use `<c-o>` to jump back
+nbind("[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+nbind("]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+
+-- Only jump to error
+nbind("[E", function()
+  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end)
+nbind("]E", function()
+  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+end)
+
+-- Outline
+nbind("<leader>o", "<cmd>LSoutlineToggle<CR>")
+
+-- Hover Doc
+nbind("K", "<cmd>Lspsaga hover_doc<CR>")
 

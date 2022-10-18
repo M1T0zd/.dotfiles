@@ -1,5 +1,7 @@
 vim.opt.guicursor = ""
 
+vim.opt.laststatus = 3 -- global statusline
+
 vim.opt.errorbells = false
 
 vim.opt.nu = true
