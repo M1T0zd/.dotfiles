@@ -7,7 +7,6 @@ nbind("<leader>z", "<cmd>qa<CR>") -- exit nvim
 nbind("<leader>c", function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and "80" or "" end) -- toggle colorcolumn 80
 nbind("<leader>b", "<cmd>Ex<CR>") -- open Netrw
 nbind("<leader>g", function() require'neogit'.open({ kind = "replace" }) end)
---nbind("<leader>o", "<cmd>SymbolsOutline<CR>")
 nbind("<leader>u", "<cmd>UndotreeToggle<CR>")
 nbind("<leader>i", function() require"zen-mode".toggle({
   window = {

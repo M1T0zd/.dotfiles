@@ -10,7 +10,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-  use("simrat39/symbols-outline.nvim")
   use("glepnir/lspsaga.nvim")
   use("onsails/lspkind.nvim")
   use {

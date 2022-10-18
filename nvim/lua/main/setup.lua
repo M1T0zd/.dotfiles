@@ -54,9 +54,6 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
--- symbols-outline
-require("symbols-outline").setup()
-
 -- lspsaga
 local saga = require('lspsaga')
 saga.init_lsp_saga()
