@@ -4,7 +4,7 @@ return require('packer').startup(function(use)
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
 
-  -- LSP / CODE ASSIST --
+  -- CODE INTELLIGENCE --
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
@@ -17,7 +17,6 @@ return require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
-  use 'nvim-treesitter/nvim-treesitter-refactor'
 
   -- UTIL --
   use("mbbill/undotree")
@@ -33,9 +32,6 @@ return require('packer').startup(function(use)
       }
     end
   }
-  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-    require("toggleterm").setup()
-  end}
 
   -- Telescope
   use("nvim-telescope/telescope.nvim")

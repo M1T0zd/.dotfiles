@@ -14,6 +14,6 @@ require('lualine').setup(require('main.config.evil_lualine'))
 
 -- icons
 require'nvim-web-devicons'.setup {
- default = true;
+    default = true;
 }
 

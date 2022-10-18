@@ -32,7 +32,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
--- LSPs --
+-- LSP --
 local lspconfig = require'lspconfig'
 
 local lsp_flags = {}
@@ -83,15 +83,6 @@ lspconfig.sumneko_lua.setup {
     },
   },
 }
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
---local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua' }
---for _, lsp in ipairs(servers) do
---  lspconfig[lsp].setup {
---    -- on_attach = my_custom_on_attach,
---    capabilities = capabilities,
---  }
---end
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -203,12 +194,4 @@ keymap("n","<leader>o", "<cmd>LSoutlineToggle<CR>",{ silent = true })
 
 -- Hover Doc
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
-
--- Float terminal
-keymap("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", { silent = true })
--- if you want pass somc cli command into terminal you can do like this
--- open lazygit in lspsaga float terminal
-keymap("n", "<A-d>", "<cmd>Lspsaga open_floaterm lazygit<CR>", { silent = true })
--- close floaterm
-keymap("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], { silent = true })
 
