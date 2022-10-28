@@ -1,12 +1,12 @@
-local bind = require("main.lib.keymap").bind
-local nbind = require("main.lib.keymap").nbind
-local tbind = require("main.lib.keymap").tbind
+local keymap_lib = require("main.lib.keymap")
+local bind = keymap_lib.bind
+local nbind = keymap_lib.nbind
+local tbind = keymap_lib.tbind
 
 -- Util --
 nbind("<leader>z", "<cmd>qa<CR>") -- exit nvim
 nbind("<leader>c", function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and "80" or "" end) -- toggle colorcolumn 80
 nbind("<leader>b", "<cmd>Ex<CR>") -- open Netrw
-nbind("<leader>g", function() require'neogit'.open({ kind = "replace" }) end)
 nbind("<leader>u", "<cmd>UndotreeToggle<CR>")
 nbind("<leader>i", function() require"zen-mode".toggle({
   window = {
@@ -104,4 +104,32 @@ nbind("<leader>o", "<cmd>LSoutlineToggle<CR>")
 
 -- Hover Doc
 nbind("K", "<cmd>Lspsaga hover_doc<CR>")
+
+
+-- EXPORTS --
+local M = {}
+
+local set_buffer_binds = function(bufnr)
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { buffer=bufnr }
+  nbind('gD', vim.lsp.buf.declaration, bufopts)
+  nbind('gd', vim.lsp.buf.definition, bufopts)
+  nbind('K', vim.lsp.buf.hover, bufopts)
+  nbind('gi', vim.lsp.buf.implementation, bufopts)
+  nbind('<C-k>', vim.lsp.buf.signature_help, bufopts)
+  nbind('<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  nbind('<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  nbind('<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  nbind('<space>D', vim.lsp.buf.type_definition, bufopts)
+  nbind('<space>rn', vim.lsp.buf.rename, bufopts)
+  nbind('<space>ca', vim.lsp.buf.code_action, bufopts)
+  nbind('gr', vim.lsp.buf.references, bufopts)
+  nbind('<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
+M.set_buffer_binds = set_buffer_binds
+
+return M
 

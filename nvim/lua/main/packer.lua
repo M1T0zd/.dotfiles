@@ -20,8 +20,6 @@ return require('packer').startup(function(use)
   -- UTIL --
   use("mbbill/undotree")
   use("sbdchd/neoformat")
-  use("TimUntersberger/neogit")
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use {
     'rmagatti/auto-session',
     config = function()
