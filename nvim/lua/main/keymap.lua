@@ -3,7 +3,9 @@ local bind = keymap_lib.bind
 local nbind = keymap_lib.nbind
 local tbind = keymap_lib.tbind
 
--- Util --
+
+---- UTIL ----
+
 nbind('<leader>z', '<cmd>qa<CR>') -- exit nvim
 nbind('<leader>c', function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and '80' or '' end) -- toggle colorcolumn 80
 nbind('<leader>b', '<cmd>Ex<CR>') -- open Netrw
@@ -14,6 +16,7 @@ nbind('<leader>i', function() require'zen-mode'.toggle({
   }
 }) end)
 nbind('<leader>/', '<cmd>VimBeGood<CR>')
+nbind('<leader>,', '<cmd>Neoformat<CR>')
 bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
 nbind('<A-d>', '<cmd>Lspsaga open_floaterm<CR>') -- open terminal
 tbind('<A-d>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
@@ -52,6 +55,7 @@ nbind('<leader>]', function() harpoon_tmux.gotoTerminal(5) end)
 nbind('<leader>[', function() harpoon_tmux.gotoTerminal(6) end)
 nbind('<leader>>', function() harpoon_tmux.gotoTerminal(7) end)
 nbind('<leader><', function() harpoon_tmux.gotoTerminal(8) end)
+
 
 ---- CODE INTELLIGENCE ----
 
