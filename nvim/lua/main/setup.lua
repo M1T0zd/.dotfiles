@@ -1,5 +1,7 @@
----- TELESCOPE ----
+---- UTIL ----
+require('nvim_comment').setup()
 
+-- Telescope --
 require('telescope').setup {
   pickers = {
      find_files = {
@@ -57,7 +59,7 @@ lspconfig['pyright'].setup{
     capabilities = capabilities,
 }
 lspconfig['tsserver'].setup{
-    on_attach = on_attach,
+    _attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
 }
@@ -172,7 +174,6 @@ require'nvim-treesitter.configs'.setup {
 local saga = require('lspsaga')
 saga.init_lsp_saga()
 
-
 ---- MISC ----
 
 require('zen-mode').setup {
@@ -180,3 +181,4 @@ require('zen-mode').setup {
     tmux = { enabled = false }
   }
 }
+

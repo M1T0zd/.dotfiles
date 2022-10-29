@@ -1,10 +1,10 @@
 return require('packer').startup(function(use)
-  -- CORE / LIB --
+  ---- CORE / LIB ----
   use 'wbthomason/packer.nvim'
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
 
-  -- CODE INTELLIGENCE --
+  ---- CODE INTELLIGENCE ----
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
@@ -17,7 +17,7 @@ return require('packer').startup(function(use)
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
 
-  -- UTIL --
+  ---- UTIL ----
   use("mbbill/undotree")
   use("sbdchd/neoformat")
   use {
@@ -29,8 +29,9 @@ return require('packer').startup(function(use)
       }
     end
   }
+  use 'terrortylor/nvim-comment'
 
-  -- Telescope
+  -- Telescope --
   use("nvim-telescope/telescope.nvim")
   use {
     "AckslD/nvim-neoclip.lua",
@@ -51,18 +52,7 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- Extra
-  use "folke/zen-mode.nvim"
-  use {
-    "folke/twilight.nvim",
-    config = function()
-      require("twilight").setup()
-    end
-  }
-  use 'ThePrimeagen/vim-be-good'
-  use 'dstein64/vim-startuptime'
-
-  -- THEME --
+  ---- THEME ----
   use {
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
@@ -76,5 +66,16 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
+
+  ---- MISC ----
+  use "folke/zen-mode.nvim"
+  use {
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup()
+    end
+  }
+  use 'ThePrimeagen/vim-be-good'
+  use 'dstein64/vim-startuptime'
 end)
 

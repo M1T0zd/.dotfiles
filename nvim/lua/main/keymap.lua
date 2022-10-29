@@ -13,8 +13,8 @@ nbind("<leader>i", function() require"zen-mode".toggle({
     width = .85
   }
 }) end)
-nbind("<leader>/", ":VimBeGood<CR>")
-
+nbind("<leader>/", "<cmd>VimBeGood<CR>")
+bind({ 'n', 'v' }, "<leader>.", ":CommentToggle<CR>") -- comment line(s)
 nbind("<A-d>", "<cmd>Lspsaga open_floaterm<CR>") -- open terminal
 tbind("<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
 
