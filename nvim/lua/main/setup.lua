@@ -14,12 +14,12 @@ require('telescope').setup {
     	  ['<c-d>'] = require('telescope.actions').delete_buffer
       },
       i = {
-        ["<C-h>"] = "which_key",
+        ['<C-h>'] = 'which_key',
         ['<c-d>'] = require('telescope.actions').delete_buffer
       }
     },
    file_ignore_patterns = {
-     "node_modules", "build", "dist", "yarn.lock"
+     'node_modules', 'build', 'dist', 'yarn.lock'
    },
   },
   extensions = {
@@ -28,16 +28,16 @@ require('telescope').setup {
     },
   },
 }
-require("telescope").load_extension('harpoon')
-require("telescope").load_extension "file_browser"
-require("telescope").load_extension("session-lens")
+require('telescope').load_extension('harpoon')
+require('telescope').load_extension('file_browser')
+require('telescope').load_extension('session-lens')
 require('telescope').load_extension('neoclip')
 
 
 ---- CODE INTELLIGENCE ----
 
 -- LSP --
-local lspconfig = require'lspconfig'
+local lspconfig = require('lspconfig')
 
 --eUse an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -69,7 +69,7 @@ lspconfig['rust_analyzer'].setup{
     capabilities = capabilities,
     -- Server-specific settings...
     settings = {
-      ["rust-analyzer"] = {}
+      ['rust-analyzer'] = {}
     }
 }
 lspconfig.sumneko_lua.setup {
@@ -86,7 +86,7 @@ lspconfig.sumneko_lua.setup {
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = vim.api.nvim_get_runtime_file('', true),
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -97,11 +97,11 @@ lspconfig.sumneko_lua.setup {
 }
 
 -- Completion --
-local cmp = require 'cmp'
+local cmp = require('cmp')
 
 local lspkind = require('lspkind')
 
-local luasnip = require 'luasnip'
+local luasnip = require('luasnip')
 
 cmp.setup {
   snippet = {
@@ -156,8 +156,8 @@ cmp.setup {
 }
 
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "c", "lua", "rust", "typescript", "python" },
+  -- A list of parser names, or 'all'
+  ensure_installed = { 'c', 'lua', 'rust', 'typescript', 'python' },
 
   sync_install = false,
 

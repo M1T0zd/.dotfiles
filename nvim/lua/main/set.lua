@@ -1,4 +1,4 @@
-vim.opt.guicursor = ""
+vim.opt.guicursor = ''
 
 vim.opt.laststatus = 3 -- global statusline
 
@@ -18,11 +18,11 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+vim.o.sessionoptions='blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
 

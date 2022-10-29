@@ -1,22 +1,22 @@
-local keymap_lib = require("main.lib.keymap")
+local keymap_lib = require('main.lib.keymap')
 local bind = keymap_lib.bind
 local nbind = keymap_lib.nbind
 local tbind = keymap_lib.tbind
 
 -- Util --
-nbind("<leader>z", "<cmd>qa<CR>") -- exit nvim
-nbind("<leader>c", function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and "80" or "" end) -- toggle colorcolumn 80
-nbind("<leader>b", "<cmd>Ex<CR>") -- open Netrw
-nbind("<leader>u", "<cmd>UndotreeToggle<CR>")
-nbind("<leader>i", function() require"zen-mode".toggle({
+nbind('<leader>z', '<cmd>qa<CR>') -- exit nvim
+nbind('<leader>c', function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and '80' or '' end) -- toggle colorcolumn 80
+nbind('<leader>b', '<cmd>Ex<CR>') -- open Netrw
+nbind('<leader>u', '<cmd>UndotreeToggle<CR>')
+nbind('<leader>i', function() require'zen-mode'.toggle({
   window = {
     width = .85
   }
 }) end)
-nbind("<leader>/", "<cmd>VimBeGood<CR>")
-bind({ 'n', 'v' }, "<leader>.", ":CommentToggle<CR>") -- comment line(s)
-nbind("<A-d>", "<cmd>Lspsaga open_floaterm<CR>") -- open terminal
-tbind("<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
+nbind('<leader>/', '<cmd>VimBeGood<CR>')
+bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
+nbind('<A-d>', '<cmd>Lspsaga open_floaterm<CR>') -- open terminal
+tbind('<A-d>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
 
 -- Telescope --
 local telescope_builtin = require('telescope.builtin')
@@ -30,9 +30,9 @@ nbind('fe', '<cmd>Telescope file_browser<CR>')
 nbind('fc', '<cmd>Telescope neoclip<CR>')
 
 -- Harpoon --
-local harpoon_mark = require("harpoon.mark")
-local harpoon_ui = require("harpoon.ui")
-local harpoon_tmux = require("harpoon.tmux")
+local harpoon_mark = require('harpoon.mark')
+local harpoon_ui = require('harpoon.ui')
+local harpoon_tmux = require('harpoon.tmux')
 nbind('<leader>m', harpoon_mark.add_file)
 -- home row keys
 nbind('<leader>j', function() harpoon_ui.nav_file(1) end)
@@ -42,16 +42,16 @@ nbind('<leader>d', function() harpoon_ui.nav_file(4) end)
 nbind('<leader>l', function() harpoon_ui.nav_file(5) end)
 nbind('<leader>s', function() harpoon_ui.nav_file(6) end)
 nbind("<leader>'", function() harpoon_ui.nav_file(7) end)
-nbind("<leader>a", function() harpoon_ui.nav_file(8) end)
+nbind('<leader>a', function() harpoon_ui.nav_file(8) end)
 -- home row keys 2
-nbind("<leader>)", function() harpoon_tmux.gotoTerminal(1) end)
-nbind("<leader>(", function() harpoon_tmux.gotoTerminal(2) end)
-nbind("<leader>}", function() harpoon_tmux.gotoTerminal(3) end)
-nbind("<leader>{", function() harpoon_tmux.gotoTerminal(4) end)
-nbind("<leader>]", function() harpoon_tmux.gotoTerminal(5) end)
-nbind("<leader>[", function() harpoon_tmux.gotoTerminal(6) end)
-nbind("<leader>>", function() harpoon_tmux.gotoTerminal(7) end)
-nbind("<leader><", function() harpoon_tmux.gotoTerminal(8) end)
+nbind('<leader>)', function() harpoon_tmux.gotoTerminal(1) end)
+nbind('<leader>(', function() harpoon_tmux.gotoTerminal(2) end)
+nbind('<leader>}', function() harpoon_tmux.gotoTerminal(3) end)
+nbind('<leader>{', function() harpoon_tmux.gotoTerminal(4) end)
+nbind('<leader>]', function() harpoon_tmux.gotoTerminal(5) end)
+nbind('<leader>[', function() harpoon_tmux.gotoTerminal(6) end)
+nbind('<leader>>', function() harpoon_tmux.gotoTerminal(7) end)
+nbind('<leader><', function() harpoon_tmux.gotoTerminal(8) end)
 
 ---- CODE INTELLIGENCE ----
 
@@ -67,43 +67,43 @@ nbind('<space>q', vim.diagnostic.setloclist)
 -- if there is no implement it will hide
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
-nbind("gh", "<cmd>Lspsaga lsp_finder<CR>")
+nbind('gh', '<cmd>Lspsaga lsp_finder<CR>')
 
 -- Code action
-bind({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+bind({'n','v'}, '<leader>ca', '<cmd>Lspsaga code_action<CR>')
 
 -- Rename
-nbind("gr", "<cmd>Lspsaga rename<CR>")
+nbind('gr', '<cmd>Lspsaga rename<CR>')
 
 -- Peek Definition
 -- you can edit the definition file in this flaotwindow
 -- also support open/vsplit/etc operation check definition_action_keys
 -- support tagstack C-t jump back
-nbind("gd", "<cmd>Lspsaga peek_definition<CR>")
+nbind('gd', '<cmd>Lspsaga peek_definition<CR>')
 
 -- Show line diagnostics
-nbind("<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>")
+nbind('<leader>cd', '<cmd>Lspsaga show_line_diagnostics<CR>')
 
 -- Show cursor diagnostic
-nbind("<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+nbind('<leader>cd', '<cmd>Lspsaga show_cursor_diagnostics<CR>')
 
 -- Diagnsotic jump can use `<c-o>` to jump back
-nbind("[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-nbind("]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+nbind('[e', '<cmd>Lspsaga diagnostic_jump_prev<CR>')
+nbind(']e', '<cmd>Lspsaga diagnostic_jump_next<CR>')
 
 -- Only jump to error
-nbind("[E", function()
-  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+nbind('[E', function()
+  require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })
 end)
-nbind("]E", function()
-  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+nbind(']E', function()
+  require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })
 end)
 
 -- Outline
-nbind("<leader>o", "<cmd>LSoutlineToggle<CR>")
+nbind('<leader>o', '<cmd>LSoutlineToggle<CR>')
 
 -- Hover Doc
-nbind("K", "<cmd>Lspsaga hover_doc<CR>")
+nbind('K', '<cmd>Lspsaga hover_doc<CR>')
 
 
 -- EXPORTS --
