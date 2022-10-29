@@ -44,7 +44,7 @@ local lspconfig = require('lspconfig')
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    require('main.keymap').set_buffer_binds(bufnr)
+    require('main.keymap').set_lsp_binds(bufnr)
 end
 
 local lsp_flags = {}
@@ -156,18 +156,23 @@ cmp.setup {
 }
 
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or 'all'
-  ensure_installed = { 'c', 'lua', 'rust', 'typescript', 'python' },
+    -- A list of parser names, or 'all'
+    ensure_installed = { 'c', 'lua', 'rust', 'typescript', 'python' },
 
-  sync_install = false,
+    sync_install = false,
 
-  auto_install = true,
+    auto_install = true,
+    indent = {
+        enable = true
+    },
+    autotag = {
+        enable = true,
+    },
+    highlight = {
+        enable = true,
 
-  highlight = {
-    enable = true,
-
-    additional_vim_regex_highlighting = false,
-  },
+        additional_vim_regex_highlighting = false,
+    },
 }
 
 -- LspSaga --
@@ -178,8 +183,8 @@ saga.init_lsp_saga()
 ---- MISC ----
 
 require('zen-mode').setup {
-  plugins = {
-    tmux = { enabled = false }
-  }
+    plugins = {
+        tmux = { enabled = false }
+    }
 }
 
