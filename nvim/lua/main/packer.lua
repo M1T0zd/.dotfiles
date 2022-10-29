@@ -19,7 +19,6 @@ return require('packer').startup(function(use)
 
   ---- UTIL ----
   use 'mbbill/undotree'
-  use 'sbdchd/neoformat'
   use {
     'rmagatti/auto-session',
     config = function()

@@ -16,7 +16,6 @@ nbind('<leader>i', function() require'zen-mode'.toggle({
   }
 }) end)
 nbind('<leader>/', '<cmd>VimBeGood<CR>')
-nbind('<leader>,', '<cmd>Neoformat<CR>')
 bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
 nbind('<A-d>', '<cmd>Lspsaga open_floaterm<CR>') -- open terminal
 tbind('<A-d>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
@@ -130,7 +129,7 @@ local set_buffer_binds = function(bufnr)
   nbind('<space>rn', vim.lsp.buf.rename, bufopts)
   nbind('<space>ca', vim.lsp.buf.code_action, bufopts)
   nbind('gr', vim.lsp.buf.references, bufopts)
-  nbind('<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  nbind('<space>,', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 M.set_buffer_binds = set_buffer_binds
