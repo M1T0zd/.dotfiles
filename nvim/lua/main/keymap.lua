@@ -128,7 +128,7 @@ local set_lsp_binds = function(bufnr)
   nbind('<space>,', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-M.set_buffer_binds = set_lsp_binds
+M.set_lsp_binds = set_lsp_binds
 
 return M
 
