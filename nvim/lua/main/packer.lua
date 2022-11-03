@@ -84,5 +84,6 @@ return require('packer').startup(function(use)
     }
     use 'ThePrimeagen/vim-be-good'
     use 'dstein64/vim-startuptime'
+    use 'lukas-reineke/indent-blankline.nvim'
 end)
 
