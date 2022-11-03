@@ -64,6 +64,14 @@ nbind('[d', vim.diagnostic.goto_prev)
 nbind(']d', vim.diagnostic.goto_next)
 nbind('<space>q', vim.diagnostic.setloclist)
 
+-- Trouble
+nbind('<leader>xx', '<cmd>TroubleToggle<cr>')
+nbind('<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>')
+nbind('<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>')
+nbind('<leader>xl', '<cmd>TroubleToggle loclist<cr>')
+nbind('<leader>xq', '<cmd>TroubleToggle quickfix<cr>')
+nbind('gR', '<cmd>TroubleToggle lsp_references<cr>')
+
 -- LspSaga --
 
 -- Lsp finder find the symbol definition implement reference
