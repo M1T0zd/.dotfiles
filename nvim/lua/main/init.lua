@@ -4,4 +4,3 @@ require('main.keymap')
 require('main.setup')
 require('main.theme')
 require('main.autocommand')
-

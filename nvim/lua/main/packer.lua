@@ -13,6 +13,7 @@ return require('packer').startup(function(use)
     use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
     use 'glepnir/lspsaga.nvim'
     use 'onsails/lspkind.nvim'
+    use 'nvim-lua/lsp_extensions.nvim'
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
@@ -86,4 +87,3 @@ return require('packer').startup(function(use)
     use 'dstein64/vim-startuptime'
     use 'lukas-reineke/indent-blankline.nvim'
 end)
-

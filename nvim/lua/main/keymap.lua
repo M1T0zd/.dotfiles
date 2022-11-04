@@ -3,6 +3,7 @@ local bind = keymap_lib.bind
 local nbind = keymap_lib.nbind
 local tbind = keymap_lib.tbind
 
+local f = require('main.function')
 
 ---- UTIL ----
 
@@ -19,6 +20,8 @@ nbind('<leader>/', '<cmd>VimBeGood<CR>')
 bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
 nbind('<A-d>', '<cmd>Lspsaga open_floaterm<CR>') -- open terminal
 tbind('<A-d>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
+-- nbind('<Leader>T', require'lsp_extensions'.inlay_hints)
+nbind('<Leader>T', f.toggle_inlay_hint)
 
 -- Telescope --
 local telescope_builtin = require('telescope.builtin')
@@ -139,4 +142,3 @@ end
 M.set_lsp_binds = set_lsp_binds
 
 return M
-
