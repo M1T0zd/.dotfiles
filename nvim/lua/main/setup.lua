@@ -98,25 +98,19 @@ lspconfig.sumneko_lua.setup {
     },
 }
 
-require'lsp_extensions'.inlay_hints{
-    highlight = "Comment",
-    prefix = " -> ",
-    aligned = true,
-    only_current_line = false,
-    enabled = {  "TypeHint", "ChainingHint", "ParameterHint" }
-}
+-- require'lsp_extensions'.inlay_hints{
+--     highlight = "Comment",
+--     prefix = " -> ",
+--     aligned = true,
+--     only_current_line = false,
+--     enabled = {  "TypeHint", "ChainingHint", "ParameterHint" }
+-- }
 
 local rt = require("rust-tools")
 rt.setup({
     tools = {
         runnables = {
             use_telescope = true,
-        },
-        inlay_hints = {
-            auto = true,
-            show_parameter_hints = false,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
         },
     },
 

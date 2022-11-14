@@ -29,3 +29,5 @@ vim.o.sessionoptions='blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
+
+vim.opt.undofile = true
