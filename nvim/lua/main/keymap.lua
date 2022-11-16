@@ -21,7 +21,8 @@ bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
 nbind('<A-d>', '<cmd>Lspsaga open_floaterm<CR>') -- open terminal
 tbind('<A-d>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
 -- nbind('<Leader>T', require'lsp_extensions'.inlay_hints)
-nbind('<Leader>T', f.toggle_inlay_hint)
+nbind('<leader>T', f.toggle_inlay_hint)
+nbind('<leader>g', f._lazygit_toggle)
 
 -- Telescope --
 local telescope_builtin = require('telescope.builtin')

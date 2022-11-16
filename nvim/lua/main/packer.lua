@@ -38,6 +38,7 @@ return require('packer').startup(function(use)
         end
     }
     use 'terrortylor/nvim-comment'
+    use {"akinsho/toggleterm.nvim", tag = '*'}
 
     -- Telescope --
     use 'nvim-telescope/telescope.nvim'

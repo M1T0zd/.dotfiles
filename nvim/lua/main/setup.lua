@@ -1,6 +1,7 @@
 ---- UTIL ----
 require('nvim_comment').setup()
 require('trouble').setup()
+require("toggleterm").setup()
 
 -- Telescope --
 local telescope = require('telescope')
