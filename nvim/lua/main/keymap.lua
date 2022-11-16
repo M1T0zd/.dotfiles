@@ -20,9 +20,11 @@ nbind('<leader>/', '<cmd>VimBeGood<CR>')
 bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
 nbind('<A-d>', '<cmd>Lspsaga open_floaterm<CR>') -- open terminal
 tbind('<A-d>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
--- nbind('<Leader>T', require'lsp_extensions'.inlay_hints)
-nbind('<leader>T', f.toggle_inlay_hint)
-nbind('<leader>g', f._lazygit_toggle)
+nbind('<Leader>T', require'lsp_extensions'.inlay_hints)
+bind({ 'n', 't', }, '<leader>T', f.set_inlay_hint)
+bind({ 'n', 't', }, '<leader>g', f.lazygit_toggle)
+bind({ 'n', 't', }, '<leader>t', f.terminal_toggle)
+bind({ 'n', 't', }, '<leader>w', f.btop_toggle)
 
 -- Telescope --
 local telescope_builtin = require('telescope.builtin')
@@ -121,7 +123,19 @@ nbind('<leader>o', '<cmd>LSoutlineToggle<CR>')
 nbind('K', '<cmd>Lspsaga hover_doc<CR>')
 
 
--- EXPORTS --
+---- DEFAULTS ----
+
+-- terminal
+-- tbind('<esc>', [[<C-\><C-n>]])
+tbind('jk', [[<C-\><C-n>]])
+tbind('<C-h>', [[<Cmd>wincmd h<CR>]])
+tbind('<C-j>', [[<Cmd>wincmd j<CR>]])
+tbind('<C-k>', [[<Cmd>wincmd k<CR>]])
+tbind('<C-l>', [[<Cmd>wincmd l<CR>]])
+
+
+---- EXPORTS ----
+
 local M = {}
 
 local set_lsp_binds = function(bufnr)

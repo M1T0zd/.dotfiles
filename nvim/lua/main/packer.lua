@@ -33,12 +33,12 @@ return require('packer').startup(function(use)
         config = function()
             require('auto-session').setup {
                 log_level = 'error',
-                auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/'},
+                auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
             }
         end
     }
     use 'terrortylor/nvim-comment'
-    use {"akinsho/toggleterm.nvim", tag = '*'}
+    use { 'akinsho/toggleterm.nvim', tag = '*' }
 
     -- Telescope --
     use 'nvim-telescope/telescope.nvim'
