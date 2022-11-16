@@ -37,9 +37,6 @@ do -- ToggleTerm --
     end
 
     M.lazygit_toggle = function ()
-        -- lazygit:send("<esc>q")
-        -- lazygit:change_dir("git_dir")
-        -- lazygit:send("lazygit")
         lazygit:toggle()
     end
 
