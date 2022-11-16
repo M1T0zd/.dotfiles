@@ -243,7 +243,7 @@ null_ls.setup({
 
 require('zen-mode').setup {
     plugins = {
-        tmux = { enabled = true }
+        tmux = { enabled = false }
     }
 }
 
