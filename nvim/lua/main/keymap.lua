@@ -18,10 +18,6 @@ nbind('<leader>i', function() require'zen-mode'.toggle({
 }) end)
 nbind('<leader>/', '<cmd>VimBeGood<CR>')
 bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
--- nbind('<A-d>', '<cmd>Lspsaga open_floaterm<CR>') -- open terminal
--- tbind('<A-d>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]]) -- close terminal
--- nbind('<leader>T', require'lsp_extensions'.inlay_hints)
-nbind('<leader>T', f.set_inlay_hint)
 bind({ 'n', 't', }, '<A-d>', f.terminal_toggle)
 bind({ 'n', 't', }, '<leader>g', f.lazygit_toggle)
 bind({ 'n', 't', }, '<leader>w', f.btop_toggle)

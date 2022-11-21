@@ -99,14 +99,6 @@ lspconfig.sumneko_lua.setup {
     },
 }
 
--- require'lsp_extensions'.inlay_hints{
---     highlight = "Comment",
---     prefix = " -> ",
---     aligned = true,
---     only_current_line = false,
---     enabled = {  "TypeHint", "ChainingHint", "ParameterHint" }
--- }
-
 local rt = require("rust-tools")
 rt.setup({
     tools = {
@@ -126,7 +118,6 @@ rt.setup({
             vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
             -- Code action groups
             vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-            require('main.function').set_inlay_hint()
         end,
         -- flags = lsp_flags,
         -- capabilities = capabilities,
@@ -142,6 +133,7 @@ rt.setup({
         },
     },
 })
+-- rt.inlay_hints.enable()
 
 -- Completion --
 local cmp = require('cmp')
