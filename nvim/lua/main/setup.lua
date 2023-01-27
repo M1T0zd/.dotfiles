@@ -217,7 +217,8 @@ require'nvim-treesitter.configs'.setup {
 
 -- LspSaga --
 local saga = require('lspsaga')
-saga.init_lsp_saga()
+saga.setup()
+-- saga.init_lsp_saga()
 
 -- null-ls --
 local null_ls = require("null-ls")
