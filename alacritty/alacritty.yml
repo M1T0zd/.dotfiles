@@ -1,3 +1,19 @@
+window:
+  startup_mode: Fullscreen
+
+  decorations: none
+
+  position:
+    x: 0
+    y: 0
+
+  padding:
+    x: 0
+    y: 0
+
+mouse:
+  hide_when_typing: true
+
 font:
   normal:
     family: Iosevka Nerd Font
