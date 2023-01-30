@@ -1,5 +1,5 @@
 require('main.packer')
-require('main.set')
+require('main.opts')
 require('main.keymap')
 require('main.setup')
 require('main.theme')
