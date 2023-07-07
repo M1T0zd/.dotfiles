@@ -1,7 +1,6 @@
 window:
-  startup_mode: Fullscreen
-
   decorations: none
+  opacity: 1.0
 
   position:
     x: 0
@@ -25,4 +24,4 @@ font:
   italic:
     style: Italic
 
-  size: 14.0
+  size: 10.0

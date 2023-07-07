@@ -18,7 +18,7 @@ require('telescope').setup {
     defaults = {
         mappings = {
             n = {
-                ['<c-s>'] = function() require"telescope.builtin".find_files({ hidden = true }) end,
+                ['<c-s>'] = function() require "telescope.builtin".find_files({ hidden = true }) end,
                 ['<c-d>'] = telescope_actions.delete_buffer,
                 ['<c-t>'] = trouble_telescope.open_with_trouble
             },
@@ -63,17 +63,17 @@ local lsp_flags = {}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-lspconfig['pyright'].setup{
+lspconfig['pyright'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
 }
-lspconfig['tsserver'].setup{
+lspconfig['tsserver'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
 }
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
@@ -85,7 +85,7 @@ lspconfig.sumneko_lua.setup {
             },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
+                globals = { 'vim' },
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
@@ -154,7 +154,7 @@ cmp.setup {
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            -- select = true,
         },
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -179,6 +179,10 @@ cmp.setup {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
     },
+    -- window = {
+    --     completion = cmp.config.window.bordered(),
+    --     documentation = cmp.config.window.bordered(),
+    -- },
     formatting = {
         format = lspkind.cmp_format({
             mode = 'symbol', -- show only symbol annotations
@@ -187,15 +191,67 @@ cmp.setup {
 
             -- The function below will be called before any actual modifications from lspkind
             -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-            before = function (_, vim_item)
+            before = function(_, vim_item)
                 return vim_item
             end
         })
     },
 }
 
+-- -- Completion Plugin Setup
+-- cmp.setup({
+--   -- Enable LSP snippets
+--   snippet = {
+--     expand = function(args)
+--         vim.fn["vsnip#anonymous"](args.body)
+--     end,
+--   },
+--   mapping = {
+--     ['<C-p>'] = cmp.mapping.select_prev_item(),
+--     ['<C-n>'] = cmp.mapping.select_next_item(),
+--     -- Add tab support
+--     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+--     ['<Tab>'] = cmp.mapping.select_next_item(),
+--     ['<C-S-f>'] = cmp.mapping.scroll_docs(-4),
+--     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+--     ['<C-Space>'] = cmp.mapping.complete(),
+--     ['<C-e>'] = cmp.mapping.close(),
+--     ['<CR>'] = cmp.mapping.confirm({
+--       behavior = cmp.ConfirmBehavior.Insert,
+--       select = true,
+--     })
+--   },
+--   -- Installed sources:
+--   sources = {
+--     { name = 'path' },                              -- file paths
+--     { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
+--     { name = 'nvim_lsp_signature_help'},            -- display function signatures with current parameter emphasized
+--     { name = 'nvim_lua', keyword_length = 2},       -- complete neovim's Lua runtime API such vim.lsp.*
+--     { name = 'buffer', keyword_length = 2 },        -- source current buffer
+--     { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip
+--     { name = 'calc'},                               -- source for math calculation
+--   },
+--   window = {
+--       completion = cmp.config.window.bordered(),
+--       documentation = cmp.config.window.bordered(),
+--   },
+--   formatting = {
+--       fields = {'menu', 'abbr', 'kind'},
+--       format = function(entry, item)
+--           local menu_icon ={
+--               nvim_lsp = 'λ',
+--               vsnip = '⋗',
+--               buffer = 'Ω',
+--               path = '🖫',
+--           }
+--           item.menu = menu_icon[entry.source.name]
+--           return item
+--       end,
+--   },
+-- })
+
 -- treesitter --
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
     -- A list of parser names, or 'all'
     ensure_installed = { 'c', 'lua', 'rust', 'typescript', 'python' },
 
@@ -231,6 +287,8 @@ null_ls.setup({
     },
 })
 
+-- mason --
+require('mason').setup()
 
 ---- MISC ----
 
