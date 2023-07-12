@@ -9,7 +9,7 @@ local f = require('main.function')
 
 nbind('<leader>z', '<cmd>qa<CR>') -- exit nvim
 nbind('<leader>c', function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and '80' or '' end) -- toggle colorcolumn 80
-nbind('<leader>b', '<cmd>Ex<CR>') -- open Netrw
+-- nbind('<leader>b', '<cmd>Ex<CR>') -- open Netrw
 nbind('<leader>u', '<cmd>UndotreeToggle<CR>')
 nbind('<leader>i', function() require'zen-mode'.toggle({
   window = {
@@ -19,8 +19,8 @@ nbind('<leader>i', function() require'zen-mode'.toggle({
 nbind('<leader>/', '<cmd>VimBeGood<CR>')
 bind({ 'n', 'v' }, '<leader>.', ':CommentToggle<CR>') -- comment line(s)
 bind({ 'n', 't', }, '<A-d>', f.terminal_toggle)
-bind({ 'n', 't', }, '<leader>g', f.lazygit_toggle)
-bind({ 'n', 't', }, '<leader>w', f.btop_toggle)
+nbind('<leader>g', f.lazygit_toggle)
+nbind('<leader>w', f.btop_toggle)
 
 -- Telescope --
 local telescope_builtin = require('telescope.builtin')
@@ -61,10 +61,10 @@ nbind('<leader><', function() harpoon_tmux.gotoTerminal(8) end)
 ---- CODE INTELLIGENCE ----
 
 -- Diagnostics --
-nbind('<space>e', vim.diagnostic.open_float)
-nbind('[d', vim.diagnostic.goto_prev)
-nbind(']d', vim.diagnostic.goto_next)
-nbind('<space>q', vim.diagnostic.setloclist)
+-- nbind('<space>e', vim.diagnostic.open_float)
+-- nbind('[d', vim.diagnostic.goto_prev)
+-- nbind(']d', vim.diagnostic.goto_next)
+-- nbind('<space>q', vim.diagnostic.setloclist)
 
 -- Trouble
 nbind('<leader>xx', '<cmd>TroubleToggle<cr>')

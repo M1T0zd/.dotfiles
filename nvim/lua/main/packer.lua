@@ -18,7 +18,10 @@ return require("packer").startup(function(use)
         end,
     })
     use("nvim-treesitter/nvim-treesitter-context")
-    use("williamboman/mason.nvim")
+    use {
+        "williamboman/mason.nvim",
+        run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+    }
     use("williamboman/mason-lspconfig.nvim")
     use("simrat39/rust-tools.nvim")
     use("Saecki/crates.nvim")
