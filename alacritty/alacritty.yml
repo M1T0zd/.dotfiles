@@ -1,6 +1,6 @@
 window:
-  decorations: none
-  opacity: 1.0
+  # decorations: none
+  # opacity: 1.0
 
   position:
     x: 0
@@ -10,8 +10,8 @@ window:
     x: 0
     y: 0
 
-mouse:
-  hide_when_typing: true
+# mouse:
+#   hide_when_typing: true
 
 font:
   normal:
@@ -24,4 +24,4 @@ font:
   italic:
     style: Italic
 
-  size: 10.0
+  # size: 10.0

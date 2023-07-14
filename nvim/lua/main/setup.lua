@@ -63,12 +63,27 @@ local lsp_flags = {}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-lspconfig['pyright'].setup {
+lspconfig.pyright.setup {
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
 }
-lspconfig['tsserver'].setup {
+-- lspconfig.eslint.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     capabilities = capabilities,
+--     settings = {
+--         packageManager = 'npm'
+--     -- packageManager = 'yarn'
+--   },
+--   on_attach = function(client, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--   end,
+-- }
+lspconfig.tsserver.setup {
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
@@ -279,12 +294,73 @@ saga.setup()
 -- null-ls --
 local null_ls = require("null-ls")
 
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre" -- or "BufWritePost"
+local async = event == "BufWritePost"
+
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.completion.spell,
-    },
+          -- null_ls.builtins.diagnostics.eslint_d.with(opts.eslint_diagnostics),
+          -- null_ls.builtins.formatting.eslint_d.with(opts.eslint_formatting),
+          -- null_ls.builtins.formatting.prettier.with(opts.prettier_formatting),
+          -- null_ls.builtins.formatting.stylua.with(opts.stylua_formatting),
+          -- null_ls.builtins.formatting.elm_format.with(opts.elm_format_formatting),
+          -- null_ls.builtins.code_actions.eslint_d.with(opts.eslint_diagnostics),
+        },
+  -- on_attach = function(client, bufnr)
+  --   if client.supports_method("textDocument/formatting") then
+  --     vim.keymap.set("n", "<Leader>,", function()
+  --       vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+  --     end, { buffer = bufnr, desc = "[lsp] format" })
+  --
+  --     -- format on save
+  --     vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+  --     vim.api.nvim_create_autocmd(event, {
+  --       buffer = bufnr,
+  --       group = group,
+  --       callback = function()
+  --         vim.lsp.buf.format({ bufnr = bufnr, async = async })
+  --       end,
+  --       desc = "[lsp] format on save",
+  --     })
+  --   end
+  --
+  --   if client.supports_method("textDocument/rangeFormatting") then
+  --     vim.keymap.set("x", "<Leader>,", function()
+  --       vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+  --     end, { buffer = bufnr, desc = "[lsp] format" })
+  --   end
+  -- end,
+})
+
+null_ls.builtins.formatting.prettierd.with({
+      condition = function(utils)
+        return utils.has_file({ ".prettierrc.js" })
+      end,
+    })
+
+-- prettier --
+local prettier = require("prettier")
+
+prettier.setup({
+  bin = 'prettierd',
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
 })
 
 -- mason --
