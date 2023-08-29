@@ -1,5 +1,4 @@
 require('main.bootstrap')
--- require('main.packer')
 require('main.opts')
 require('main.keymap')
 require('main.autocommand')
