@@ -33,7 +33,7 @@ nbind('fh', '<cmd>Telescope harpoon marks<CR>')
 nbind('fs', require('session-lens').search_session)
 nbind('fe', '<cmd>Telescope file_browser<CR>')
 nbind('fc', '<cmd>Telescope neoclip<CR>')
-nbind('fn', '<cmd>Telescope notify<CR>')
+nbind('fn', '<cmd>Telescope noice<CR>')
 
 -- Harpoon --
 local harpoon_mark = require('harpoon.mark')

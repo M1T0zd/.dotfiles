@@ -118,6 +118,12 @@ require('lazy').setup({
     { 'lukas-reineke/indent-blankline.nvim' },
     { 'ggandor/leap.nvim' },
     {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+            require('colorizer').setup()
+        end,
+    },
+    {
         'nmac427/guess-indent.nvim',
         config = function()
             require('guess-indent').setup({})

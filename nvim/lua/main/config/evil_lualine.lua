@@ -148,6 +148,22 @@ ins_left {
   },
 }
 
+ins_left {
+  -- 'mode',
+  function()
+    local msg = require("noice").api.status.mode.get()
+    if msg == nil then
+      msg = 'NORMAL'
+    else
+      msg = msg:gsub('-', '')
+      msg = msg:gsub(' ', '')
+    end
+    return msg
+  end,
+  -- cond = require("noice").api.status.mode.has,
+  color = { fg = colors.fg },
+}
+
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
 ins_left {
@@ -159,7 +175,7 @@ ins_left {
 ins_left {
   -- Lsp server name .
   function()
-    local msg = 'No Active Lsp'
+    local msg = 'None'
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
@@ -167,17 +183,27 @@ ins_left {
     end
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= 'null-ls' then
         return client.name
       end
     end
     return msg
   end,
   icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
+  color = { fg = '#cccccc', gui = 'bold' },
 }
 
 -- Add components to right sections
+-- ins_right {
+--   require("noice").api.status.command.get,
+--   cond = require("noice").api.status.command.has,
+--   color = { fg = colors.yellow },
+-- }
+
+ins_right {
+  'filetype',
+}
+
 ins_right {
   'o:encoding', -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
@@ -201,7 +227,7 @@ ins_right {
 ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+  symbols = { added = '󰐕 ', modified = '󰓡 ', removed = '󰍴 ' },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },
@@ -219,4 +245,3 @@ ins_right {
 }
 
 return config
-
