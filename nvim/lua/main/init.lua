@@ -1,5 +1,6 @@
 require('main.bootstrap')
-require('main.packer')
+-- require('main.packer')
+require('main.plugins')
 require('main.opts')
 require('main.keymap')
 require('main.setup')

@@ -7,7 +7,7 @@ local f = require('main.function')
 
 ---- UTIL ----
 
-nbind('<leader>z', '<cmd>qa<CR>') -- exit nvim
+-- nbind('<leader>z', '<cmd>qa<CR>') -- exit nvim
 nbind("<leader><CR>", ":execute 'lua vim.lsp.stop_client(vim.lsp.get_active_clients())' | luafile ~/.config/nvim/init.lua<CR>")
 nbind('<leader>c', function() vim.opt.colorcolumn = next(vim.opt.colorcolumn:get()) == nil and '80' or '' end) -- toggle colorcolumn 80
 -- nbind('<leader>b', '<cmd>Ex<CR>') -- open Netrw
@@ -33,6 +33,7 @@ nbind('fh', '<cmd>Telescope harpoon marks<CR>')
 nbind('fs', require('session-lens').search_session)
 nbind('fe', '<cmd>Telescope file_browser<CR>')
 nbind('fc', '<cmd>Telescope neoclip<CR>')
+nbind('fn', '<cmd>Telescope notify<CR>')
 
 -- Harpoon --
 local harpoon_mark = require('harpoon.mark')

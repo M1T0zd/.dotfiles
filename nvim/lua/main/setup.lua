@@ -43,6 +43,7 @@ telescope.load_extension('file_browser')
 telescope.load_extension('session-lens')
 telescope.load_extension('neoclip')
 telescope.load_extension('ui-select')
+telescope.load_extension('notify')
 
 
 ---- CODE INTELLIGENCE ----
@@ -312,10 +313,10 @@ null_ls.setup({
 })
 
 null_ls.builtins.formatting.prettierd.with({
-      condition = function(utils)
+    condition = function(utils)
         return utils.has_file({ ".prettierrc.js" })
-      end,
-    })
+    end,
+})
 
 -- prettier --
 local prettier = require("prettier")
@@ -339,11 +340,32 @@ prettier.setup({
 })
 
 ---- MISC ----
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+})
+
 require('zen-mode').setup {
     plugins = {
         tmux = { enabled = true }
     }
 }
+
+require('leap').add_default_mappings()
 
 require("indent_blankline").setup {
     show_current_context = true,
