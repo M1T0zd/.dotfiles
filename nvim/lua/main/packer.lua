@@ -23,6 +23,7 @@ return require("packer").startup(function(use)
         run = ":MasonUpdate" -- :MasonUpdate updates registry contents
     }
     use("williamboman/mason-lspconfig.nvim")
+    use("jose-elias-alvarez/typescript.nvim")
     use("simrat39/rust-tools.nvim")
     use("Saecki/crates.nvim")
     use("MunifTanjim/prettier.nvim")
@@ -65,6 +66,7 @@ return require("packer").startup(function(use)
             require("session-lens").setup()
         end,
     })
+    use { 'nvim-telescope/telescope-ui-select.nvim' }
 
     -- CODE COMPLETION --
     use("hrsh7th/nvim-cmp")
@@ -111,4 +113,5 @@ return require("packer").startup(function(use)
             require("guess-indent").setup({})
         end,
     })
+    use('junegunn/vim-easy-align')
 end)

@@ -19,12 +19,12 @@ require('telescope').setup {
         mappings = {
             n = {
                 ['<c-s>'] = function() require "telescope.builtin".find_files({ hidden = true }) end,
-                ['<c-d>'] = telescope_actions.delete_buffer,
+                -- ['<c-x>'] = telescope_actions.delete_buffer,
                 ['<c-t>'] = trouble_telescope.open_with_trouble
             },
             i = {
                 ['<C-h>'] = 'which_key',
-                ['<c-d>'] = telescope_actions.delete_buffer,
+                -- ['<c-x>'] = telescope_actions.delete_buffer,
                 ['<c-t>'] = trouble_telescope.open_with_trouble
             }
         },
@@ -42,9 +42,29 @@ telescope.load_extension('harpoon')
 telescope.load_extension('file_browser')
 telescope.load_extension('session-lens')
 telescope.load_extension('neoclip')
+telescope.load_extension('ui-select')
 
 
 ---- CODE INTELLIGENCE ----
+
+-- mason --
+require('mason').setup()
+require("mason-lspconfig").setup {
+    automatic_installation = true,
+}
+require("mason-lspconfig").setup_handlers {
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler.
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {}
+    end,
+    -- Next, you can provide a dedicated handler for specific servers.
+    -- For example, a handler override for the `rust_analyzer`:
+    ["rust_analyzer"] = function ()
+        require("rust-tools").setup {}
+    end
+}
 
 -- LSP --
 local lspconfig = require('lspconfig')
@@ -60,14 +80,14 @@ end
 local lsp_flags = {}
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-lspconfig.pyright.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
-}
+-- lspconfig.pyright.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     capabilities = capabilities,
+-- }
 -- lspconfig.eslint.setup {
 --     on_attach = on_attach,
 --     flags = lsp_flags,
@@ -83,71 +103,78 @@ lspconfig.pyright.setup {
 --     })
 --   end,
 -- }
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
-}
-lspconfig.lua_ls.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file('', true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
+-- lspconfig.tsserver.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     capabilities = capabilities,
+-- }
+-- lspconfig.volar.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     capabilities = capabilities,
+-- }
+-- lspconfig.lua_ls.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     capabilities = capabilities,
+--     settings = {
+--         Lua = {
+--             runtime = {
+--                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--                 version = 'LuaJIT',
+--             },
+--             diagnostics = {
+--                 -- Get the language server to recognize the `vim` global
+--                 globals = { 'vim' },
+--             },
+--             workspace = {
+--                 -- Make the server aware of Neovim runtime files
+--                 library = vim.api.nvim_get_runtime_file('', true),
+--             },
+--             -- Do not send telemetry data containing a randomized but unique identifier
+--             telemetry = {
+--                 enable = false,
+--             },
+--         },
+--     },
+-- }
 
-local rt = require("rust-tools")
-rt.setup({
-    tools = {
-        runnables = {
-            use_telescope = true,
-        },
-    },
+-- require("typescript").setup({})
 
-    -- all the opts to send to nvim-lspconfig
-    -- these override the defaults set by rust-tools.nvim
-    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-    server = {
-        -- on_attach is a callback called when the language server attachs to the buffer
-        on_attach = function(_, bufnr)
-            on_attach(_, bufnr)
-            -- Hover actions
-            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-            -- Code action groups
-            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-        end,
-        -- flags = lsp_flags,
-        -- capabilities = capabilities,
-        settings = {
-            -- to enable rust-analyzer settings visit:
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            ["rust-analyzer"] = {
-                -- enable clippy on save
-                checkOnSave = {
-                    command = "clippy",
-                },
-            },
-        },
-    },
-})
+-- local rt = require("rust-tools")
+-- rt.setup({
+--     tools = {
+--         runnables = {
+--             use_telescope = true,
+--         },
+--     },
+--
+--     -- all the opts to send to nvim-lspconfig
+--     -- these override the defaults set by rust-tools.nvim
+--     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+--     server = {
+--         -- on_attach is a callback called when the language server attachs to the buffer
+--         on_attach = function(_, bufnr)
+--             on_attach(_, bufnr)
+--             -- Hover actions
+--             vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+--             -- Code action groups
+--             vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+--         end,
+--         -- flags = lsp_flags,
+--         -- capabilities = capabilities,
+--         settings = {
+--             -- to enable rust-analyzer settings visit:
+--             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+--             ["rust-analyzer"] = {
+--                 -- enable clippy on save
+--                 checkOnSave = {
+--                     command = "clippy",
+--                 },
+--             },
+--         },
+--     },
+-- })
 -- rt.inlay_hints.enable()
 
 -- Completion --
@@ -213,58 +240,6 @@ cmp.setup {
     },
 }
 
--- -- Completion Plugin Setup
--- cmp.setup({
---   -- Enable LSP snippets
---   snippet = {
---     expand = function(args)
---         vim.fn["vsnip#anonymous"](args.body)
---     end,
---   },
---   mapping = {
---     ['<C-p>'] = cmp.mapping.select_prev_item(),
---     ['<C-n>'] = cmp.mapping.select_next_item(),
---     -- Add tab support
---     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
---     ['<Tab>'] = cmp.mapping.select_next_item(),
---     ['<C-S-f>'] = cmp.mapping.scroll_docs(-4),
---     ['<C-f>'] = cmp.mapping.scroll_docs(4),
---     ['<C-Space>'] = cmp.mapping.complete(),
---     ['<C-e>'] = cmp.mapping.close(),
---     ['<CR>'] = cmp.mapping.confirm({
---       behavior = cmp.ConfirmBehavior.Insert,
---       select = true,
---     })
---   },
---   -- Installed sources:
---   sources = {
---     { name = 'path' },                              -- file paths
---     { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
---     { name = 'nvim_lsp_signature_help'},            -- display function signatures with current parameter emphasized
---     { name = 'nvim_lua', keyword_length = 2},       -- complete neovim's Lua runtime API such vim.lsp.*
---     { name = 'buffer', keyword_length = 2 },        -- source current buffer
---     { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip
---     { name = 'calc'},                               -- source for math calculation
---   },
---   window = {
---       completion = cmp.config.window.bordered(),
---       documentation = cmp.config.window.bordered(),
---   },
---   formatting = {
---       fields = {'menu', 'abbr', 'kind'},
---       format = function(entry, item)
---           local menu_icon ={
---               nvim_lsp = 'λ',
---               vsnip = '⋗',
---               buffer = 'Ω',
---               path = '🖫',
---           }
---           item.menu = menu_icon[entry.source.name]
---           return item
---       end,
---   },
--- })
-
 -- treesitter --
 require 'nvim-treesitter.configs'.setup {
     -- A list of parser names, or 'all'
@@ -310,30 +285,30 @@ null_ls.setup({
           -- null_ls.builtins.formatting.elm_format.with(opts.elm_format_formatting),
           -- null_ls.builtins.code_actions.eslint_d.with(opts.eslint_diagnostics),
         },
-  -- on_attach = function(client, bufnr)
-  --   if client.supports_method("textDocument/formatting") then
-  --     vim.keymap.set("n", "<Leader>,", function()
-  --       vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-  --     end, { buffer = bufnr, desc = "[lsp] format" })
-  --
-  --     -- format on save
-  --     vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-  --     vim.api.nvim_create_autocmd(event, {
-  --       buffer = bufnr,
-  --       group = group,
-  --       callback = function()
-  --         vim.lsp.buf.format({ bufnr = bufnr, async = async })
-  --       end,
-  --       desc = "[lsp] format on save",
-  --     })
-  --   end
-  --
-  --   if client.supports_method("textDocument/rangeFormatting") then
-  --     vim.keymap.set("x", "<Leader>,", function()
-  --       vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-  --     end, { buffer = bufnr, desc = "[lsp] format" })
-  --   end
-  -- end,
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.keymap.set("n", "<Leader>,", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+  
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
+        buffer = bufnr,
+        group = group,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        end,
+        desc = "[lsp] format on save",
+      })
+    end
+  
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", "<Leader>,", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+    end
+  end,
 })
 
 null_ls.builtins.formatting.prettierd.with({
@@ -363,14 +338,10 @@ prettier.setup({
   },
 })
 
--- mason --
-require('mason').setup()
-
 ---- MISC ----
-
 require('zen-mode').setup {
     plugins = {
-        tmux = { enabled = false }
+        tmux = { enabled = true }
     }
 }
 
