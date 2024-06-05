@@ -56,131 +56,33 @@ telescope.load_extension("noice")
 require("mason").setup()
 require("mason-lspconfig").setup({
 	automatic_installation = true,
-})
-require("mason-lspconfig").setup_handlers({
-	-- The first entry (without a key) will be the default handler
-	-- and will be called for each installed server that doesn't have
-	-- a dedicated handler.
-	function(server_name) -- default handler (optional)
-		require("lspconfig")[server_name].setup({
-			capabilities = require("cmp_nvim_lsp").default_capabilities(),
-		})
-	end,
-	-- Next, you can provide a dedicated handler for specific servers.
-	-- For example, a handler override for the `rust_analyzer`:
-	["rust_analyzer"] = function()
-		require("rust-tools").setup({})
-	end,
+	handlers = {
+		-- The first entry (without a key) will be the default handler
+		-- and will be called for each installed server that doesn't have
+		-- a dedicated handler.
+		function(server_name) -- default handler (optional)
+			require("lspconfig")[server_name].setup({
+				capabilities = require("cmp_nvim_lsp").default_capabilities(),
+			})
+		end,
+		-- Next, you can provide a dedicated handler for specific servers.
+		-- For example, a handler override for the `rust_analyzer`:
+		["rust_analyzer"] = function()
+			require("rust-tools").setup({})
+		end,
+	}
 })
 
 -- LSP --
 local lspconfig = require("lspconfig")
 
---eUse an on_attach function to only map the following keys
+-- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	require("main.keymap").set_lsp_binds(bufnr)
 end
-
--- local lsp_flags = {}
-
--- Add additional capabilities supported by nvim-cmp
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- lspconfig.eslint.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
---     capabilities = capabilities,
---     settings = {
---         packageManager = 'npm'
---     -- packageManager = 'yarn'
---   },
---   on_attach = function(client, bufnr)
---     vim.api.nvim_create_autocmd('BufWritePre', {
---       buffer = bufnr,
---       command = 'EslintFixAll',
---     })
---   end,
--- }
--- lspconfig.lua_ls.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
---     capabilities = capabilities,
---     settings = {
---         Lua = {
---             runtime = {
---                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---                 version = 'LuaJIT',
---             },
---             diagnostics = {
---                 -- Get the language server to recognize the `vim` global
---                 globals = { 'vim' },
---             },
---             workspace = {
---                 -- Make the server aware of Neovim runtime files
---                 library = vim.api.nvim_get_runtime_file('', true),
---             },
---             -- Do not send telemetry data containing a randomized but unique identifier
---             telemetry = {
---                 enable = false,
---             },
---         },
---     },
--- }
-
--- local rt = require('rust-tools')
--- rt.setup({
---     tools = {
---         runnables = {
---             use_telescope = true,
---         },
---     },
---
---     -- all the opts to send to nvim-lspconfig
---     -- these override the defaults set by rust-tools.nvim
---     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
---     server = {
---         -- on_attach is a callback called when the language server attachs to the buffer
---         on_attach = function(_, bufnr)
---             on_attach(_, bufnr)
---             -- Hover actions
---             vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
---             -- Code action groups
---             vim.keymap.set('n', '<Leader>a', rt.code_action_group.code_action_group, { buffer = bufnr })
---         end,
---         -- flags = lsp_flags,
---         -- capabilities = capabilities,
---         settings = {
---             -- to enable rust-analyzer settings visit:
---             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
---             ['rust-analyzer'] = {
---                 -- enable clippy on save
---                 checkOnSave = {
---                     command = 'clippy',
---                 },
---             },
---         },
---     },
--- })
--- rt.inlay_hints.enable()
-
--- Completion --
-
--- autocmd to show completion menu on space
--- vim.api.nvim_create_autocmd({ "CursorHoldI", "TextChangedI" }, {
--- 	group = vim.api.nvim_create_augroup("cmp_complete_on_space", {}),
--- 	callback = function()
--- 		local line = vim.api.nvim_get_current_line()
--- 		local cursor = vim.api.nvim_win_get_cursor(0)[2]
---
--- 		if string.sub(line, cursor, cursor + 1) == " " then
--- 			require("cmp").complete()
--- 		end
--- 	end,
--- })
 
 local cmp = require("cmp")
 
@@ -282,25 +184,6 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
--- LspSaga --
-local saga = require("lspsaga")
-saga.setup()
--- saga.init_lsp_saga()
-
--- Formatting / Linting --
-local ft = require("guard.filetype")
-
-ft("typescript,javascript,typescriptreact"):fmt("prettierd")
-ft("lua"):fmt("stylua")
-
--- Call setup() LAST!
-require("guard").setup({
-	-- the only options for the setup function
-	fmt_on_save = true,
-	-- Use lsp if no formatter was defined for this filetype
-	lsp_as_default_formatter = false,
-})
-
 ---- MISC ----
 require("noice").setup({
 	lsp = {
@@ -327,9 +210,12 @@ require("zen-mode").setup({
 	},
 })
 
-require("leap").add_default_mappings()
+local leap = require("leap")
+leap.add_default_mappings()
+-- leap.opts.special_keys.next_group = "<BS>"
 
-require("indent_blankline").setup({
-	show_current_context = true,
-	show_current_context_start = true,
+
+require("ibl").setup({
+	-- show_current_context = true,
+	-- show_current_context_start = true,
 })

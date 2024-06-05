@@ -29,6 +29,8 @@ bind({ "n", "v" }, "<leader>.", ":CommentToggle<CR>") -- comment line(s)
 bind({ "n", "t" }, "<A-d>", f.terminal_toggle)
 nbind("<leader>g", f.lazygit_toggle)
 nbind("<leader>w", f.btop_toggle)
+-- Debugging --
+nbind("<leader>y", require("dapui").toggle)
 
 -- Telescope --
 local telescope_builtin = require("telescope.builtin")
@@ -127,7 +129,7 @@ nbind("gR", "<cmd>TroubleToggle lsp_references<cr>")
 -- if there is no implement it will hide
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
-nbind("gh", "<cmd>Lspsaga lsp_finder<CR>")
+nbind("gh", "<cmd>Lspsaga finder<CR>")
 
 -- Code action
 bind({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
@@ -150,6 +152,7 @@ nbind("<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
 -- Diagnsotic jump can use `<c-o>` to jump back
 nbind("[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 nbind("]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+nbind("<leader>o", "<cmd>Lspsaga outline<CR>")
 
 -- Only jump to error
 nbind("[E", function()
@@ -158,9 +161,6 @@ end)
 nbind("]E", function()
 	require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
 end)
-
--- Outline
-nbind("<leader>o", "<cmd>LSoutlineToggle<CR>")
 
 -- Hover Doc
 nbind("K", "<cmd>Lspsaga hover_doc<CR>")

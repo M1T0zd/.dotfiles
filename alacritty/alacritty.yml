@@ -15,7 +15,8 @@ mouse:
 
 font:
   normal:
-    family: Iosevka Nerd Font
+    # family: Iosevka Nerd Font
+    family: Monospace
     style: Regular
 
   bold:

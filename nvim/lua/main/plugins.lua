@@ -7,7 +7,16 @@ require("lazy").setup({
 	{ "neovim/nvim-lspconfig" }, -- Collection of configurations for built-in LSP client
 	{ "L3MON4D3/LuaSnip" }, -- Snippets plugin
 	{ "saadparwaiz1/cmp_luasnip" }, -- Snippets source for nvim-cmp
-	{ "glepnir/lspsaga.nvim" },
+	{
+		'nvimdev/lspsaga.nvim',
+		config = function()
+			require('lspsaga').setup({})
+		end,
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter', -- optional
+			'nvim-tree/nvim-web-devicons',     -- optional
+		},
+	},
 	{ "onsails/lspkind.nvim" },
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -20,9 +29,36 @@ require("lazy").setup({
 		"williamboman/mason.nvim",
 		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
 	},
-	{ "williamboman/mason-lspconfig.nvim" },
+	{ 
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"williamboman/mason.nvim",
+		},
+	},
 	{ "simrat39/rust-tools.nvim" },
 	{ "Saecki/crates.nvim" },
+	{ 
+		"mfussenegger/nvim-lint",
+		config = function()
+			require('lint').linters_by_ft = {
+				javascript = { 'eslint_d' },
+				typescript = { 'eslint_d' },
+			}
+			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+				callback = function()
+
+					-- try_lint without arguments runs the linters defined in `linters_by_ft`
+					-- for the current filetype
+					require("lint").try_lint()
+
+					-- You can call `try_lint` with a linter name or a list of names to always
+					-- run specific linters, independent of the `linters_by_ft` configuration
+					-- require("lint").try_lint("cspell")
+				end,
+			})
+		end,
+	},
 
 	-- AI --
 	{
@@ -63,7 +99,7 @@ require("lazy").setup({
 	---- UTIL ----
 	{
 		"folke/trouble.nvim",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{ "mbbill/undotree" },
 	{
@@ -76,7 +112,27 @@ require("lazy").setup({
 		end,
 	},
 	{ "terrortylor/nvim-comment" },
-	{ "nvimdev/guard.nvim" },
+	{
+		'stevearc/conform.nvim',
+		opts = {},
+		config = function()
+			require("conform").setup({
+				format_on_save = {
+					-- These options will be passed to conform.format()
+					timeout_ms = 500,
+					lsp_fallback = true,
+				},
+				formatters_by_ft = {
+					lua = { "stylua" },
+					-- Conform will run multiple formatters sequentially
+					python = { "isort", "black" },
+					-- Use a sub-list to run only the first available formatter
+					javascript = { { "prettierd", "prettier" } },
+					typescript = { { "prettierd", "prettier" } },
+				},
+			})
+		end,
+	},
 	{ "akinsho/toggleterm.nvim", version = "*" },
 
 	-- Telescope --
@@ -112,19 +168,69 @@ require("lazy").setup({
 	{ "hrsh7th/cmp-path" },
 	{ "hrsh7th/cmp-buffer" },
 
+	-- DEBUGGING --
+	{ 
+		"mfussenegger/nvim-dap",
+		config = function()
+			local dap = require('dap')
+			dap.adapters.node2 = {
+				type = 'executable',
+				command = 'node',
+				args = {os.getenv('HOME') .. '/.local/share/nvim/mason/packages/node-debug2-adapter/node-debug2-adapter'},
+			}
+			dap.configurations.typescript = {
+				{
+					name = 'Launch',
+					type = 'node2',
+					request = 'launch',
+					program = '${file}',
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = 'inspector',
+					console = 'integratedTerminal',
+				},
+				{
+					-- For this to work you need to make sure the node process is started with the `--inspect` flag.
+					name = 'Attach to process',
+					type = 'node2',
+					request = 'attach',
+					processId = require'dap.utils'.pick_process,
+				},
+			}
+		end,
+			
+
+	},
+	{ 
+		"jay-babu/mason-nvim-dap.nvim",
+		config = function()
+			require("mason-nvim-dap").setup({
+				ensure_installed = { "node2" },
+				automatic_installation = true,
+			})
+		end,
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+		config = function()
+			require("dapui").setup()
+		end,
+	},
+
 	-- THEME/VISUALS --
 	{
 		"goolord/alpha-nvim",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("alpha").setup(require("alpha.themes.dashboard").config)
 		end,
 	},
-	{ "kyazdani42/nvim-web-devicons" },
+	{ "nvim-tree/nvim-web-devicons" },
 	{ "navarasu/onedark.nvim" },
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "kyazdani42/nvim-web-devicons", lazy = true },
+		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
 
 	---- MISC ----
