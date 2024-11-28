@@ -1,0 +1,20 @@
+[font.bold]
+style = "Bold"
+
+[font.italic]
+style = "Italic"
+
+[font.normal]
+family = "Monospace"
+style = "Regular"
+
+[mouse]
+hide_when_typing = true
+
+[window.padding]
+x = 0
+y = 0
+
+[window.position]
+x = 0
+y = 0
