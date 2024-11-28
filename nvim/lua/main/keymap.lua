@@ -39,7 +39,7 @@ nbind("<leader>fg", telescope_builtin.live_grep)
 nbind("<leader>fb", telescope_builtin.buffers)
 nbind("<leader>f/", telescope_builtin.help_tags)
 nbind("<leader>fh", "<cmd>Telescope harpoon marks<CR>")
-nbind("<leader>fs", require("session-lens").search_session)
+-- nbind("<leader>fs", require("session-lens").search_session)
 nbind("<leader>fe", "<cmd>Telescope file_browser<CR>")
 nbind("<leader>fc", "<cmd>Telescope neoclip<CR>")
 nbind("<leader>fn", "<cmd>Telescope noice<CR>")
@@ -116,12 +116,12 @@ end)
 -- nbind('<space>q', vim.diagnostic.setloclist)
 
 -- Trouble
-nbind("<leader>xx", "<cmd>TroubleToggle<cr>")
-nbind("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-nbind("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
-nbind("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
-nbind("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
-nbind("gR", "<cmd>TroubleToggle lsp_references<cr>")
+-- nbind("<leader>xx", "<cmd>TroubleToggle<cr>")
+-- nbind("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+-- nbind("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
+-- nbind("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
+-- nbind("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
+-- nbind("gR", "<cmd>TroubleToggle lsp_references<cr>")
 
 -- LspSaga --
 
@@ -130,6 +130,10 @@ nbind("gR", "<cmd>TroubleToggle lsp_references<cr>")
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
 nbind("gh", "<cmd>Lspsaga finder<CR>")
+
+-- Call hierarchy
+nbind("gj", "<cmd>Lspsaga incoming_calls<CR>")
+nbind("gk", "<cmd>Lspsaga outgoing_calls<CR>")
 
 -- Code action
 bind({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")

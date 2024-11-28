@@ -160,10 +160,11 @@ require("lazy").setup({
 			require("mason-lspconfig").setup({
 				-- automatic_installation = true,
 				ensure_installed = {
-					"tsserver",
+					"ts_ls",
 					"eslint",
 					"html",
 					"cssls",
+					"lua_ls"
 				},
 				handlers = {
 					-- The first entry (without a key) will be the default handler
@@ -287,19 +288,83 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("trouble").setup()
-		end,
+		-- config = function()
+		-- 	require("trouble").setup()
+		-- end
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+		keys = {
+		    {
+		      "<leader>xx",
+		      "<cmd>Trouble diagnostics toggle<cr>",
+			desc = "Diagnostics (Trouble)",
+		    },
+		    {
+		      "<leader>xX",
+		      "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+		      desc = "Buffer Diagnostics (Trouble)",
+		    },
+		    {
+		      "<leader>cs",
+		      "<cmd>Trouble symbols toggle focus=false<cr>",
+		      desc = "Symbols (Trouble)",
+			},
+		    {
+		      "<leader>cl",
+		      "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+		      desc = "LSP Definitions / references / ... (Trouble)",
+		    },
+		    {
+		      "<leader>xL",
+		      "<cmd>Trouble loclist toggle<cr>",
+		      desc = "Location List (Trouble)",
+		    },
+		    {
+		      "<leader>xQ",
+		      "<cmd>Trouble qflist toggle<cr>",
+		      desc = "Quickfix List (Trouble)",
+		    },
+		}
 	},
 	{ "mbbill/undotree" },
 	{
-		"rmagatti/auto-session",
-		config = function()
-			require("auto-session").setup({
-				log_level = "error",
-				auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
-			})
-		end,
+		'rmagatti/auto-session',
+		lazy = false,
+		keys = {
+			-- Will use Telescope if installed or a vim.ui.select picker otherwise
+			{ '<leader>wr', '<cmd>SessionSearch<CR>', desc = 'Session search' },
+			{ '<leader>ws', '<cmd>SessionSave<CR>', desc = 'Save session' },
+			{ '<leader>wa', '<cmd>SessionToggleAutoSave<CR>', desc = 'Toggle autosave' },
+		},
+
+
+		---enables autocomplete for opts
+		---@module "auto-session"
+		---@type AutoSession.Config
+		opts = {
+			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+			-- log_level = 'debug',
+			session_lens = {
+				-- If load_on_setup is false, make sure you use `:SessionSearch` to open the picker as it will initialize everything first
+				load_on_setup = true,
+				previewer = false,
+				mappings = {
+					-- Mode can be a string or a table, e.g. {"i", "n"} for both insert and normal mode
+					delete_session = { "i", "<C-D>" },
+					alternate_session = { "i", "<C-S>" },
+			        copy_session = { "i", "<C-Y>" },
+				},
+				-- Can also set some Telescope picker options
+				-- For all options, see: https://github.com/nvim-telescope/telescope.nvim/blob/master/doc/telescope.txt#L112
+				theme_conf = {
+					border = true,
+					-- layout_config = {
+					--   width = 0.8, -- Can set width and height as percent of window
+					--   height = 0.5,
+					-- },
+				},
+			},
+		}
 	},
 	{
 		"terrortylor/nvim-comment",
@@ -380,7 +445,6 @@ require("lazy").setup({
 			})
 			telescope.load_extension("harpoon")
 			telescope.load_extension("file_browser")
-			telescope.load_extension("session-lens")
 			telescope.load_extension("neoclip")
 			telescope.load_extension("ui-select")
 			telescope.load_extension("noice")
@@ -397,13 +461,6 @@ require("lazy").setup({
 		-- dependencies = { 'hvim-lua/plenary.nvim' },
 	},
 	{ "nvim-telescope/telescope-file-browser.nvim" },
-	{
-		"rmagatti/session-lens",
-		dependencies = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("session-lens").setup()
-		end,
-	},
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 
 	-- CODE COMPLETION --
