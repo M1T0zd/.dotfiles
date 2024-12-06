@@ -1,0 +1,6 @@
+-- require("config.bootstrap")
+require("config.options")
+require("config.lazy")
+require("config.keymap")
+require("config.autocommand")
+require("config.theme")

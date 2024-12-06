@@ -5,7 +5,7 @@ require('onedark').setup {
 require('onedark').load()
 
 -- statusline
-require('lualine').setup(require('main.config.evil_lualine'))
+require('lualine').setup(require('config.evil_lualine'))
 
 -- icons
 require'nvim-web-devicons'.setup {

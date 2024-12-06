@@ -1,7 +1,0 @@
-require("main.bootstrap")
-require("main.opts")
-require("main.plugins")
-require("main.keymap")
-require("main.autocommand")
-require("main.setup")
-require("main.theme")

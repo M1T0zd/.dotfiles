@@ -1,4 +1,4 @@
-local f = require("main.function")
+local f = require("config.function")
 
 -- open all folds
 -- vim.api.nvim_create_autocmd(

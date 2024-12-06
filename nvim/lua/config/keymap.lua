@@ -1,9 +1,9 @@
-local keymap_lib = require("main.lib.keymap")
+local keymap_lib = require("lib.keymap")
 local bind = keymap_lib.bind
 local nbind = keymap_lib.nbind
 local tbind = keymap_lib.tbind
 
-local f = require("main.function")
+local f = require("config.function")
 
 ---- UTIL ----
 
@@ -47,9 +47,9 @@ nbind("<leader>fn", "<cmd>Telescope noice<CR>")
 -- AI --
 nbind("<leader>ii", "<cmd>ChatGPT<CR>")
 nbind("<leader>io", "<cmd>ChatGPTActAs<CR>")
--- nbind("<leader>iu", function () require("main.menu") end)
+-- nbind("<leader>iu", function () require("menu") end)
 nbind("<leader>iu", "<cmd>ChatGPTEditWithInstructions<CR>")
-nbind("<leader>iy", require("main.function").chatgpt_run)
+nbind("<leader>iy", require("config.function").chatgpt_run)
 
 -- Harpoon --
 local harpoon_mark = require("harpoon.mark")
