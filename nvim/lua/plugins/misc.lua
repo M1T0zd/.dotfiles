@@ -45,6 +45,23 @@ return {
 
 	-- ETC --
 	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"echasnovski/mini.icons",
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
+	{
 		"folke/zen-mode.nvim",
 		config = function()
 			require("zen-mode").setup({

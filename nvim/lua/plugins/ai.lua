@@ -14,23 +14,16 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	cmd = "Copilot",
-	-- 	event = "InsertEnter",
-	-- 	lazy = true,
-	-- 	config = function()
-	-- 		require("copilot").setup({
-	-- 			-- replaced by copilot-cmp
-	-- 			suggestion = { enabled = false },
-	-- 			panel = { enabled = false },
-	-- 		})
-	-- 	end,
-	-- },
-	-- {
-	-- 	"zbirenbaum/copilot-cmp",
-	-- 	config = function()
-	-- 		require("copilot_cmp").setup()
-	-- 	end,
-	-- },
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		lazy = true,
+		opts = {
+			-- replaced by copilot-cmp
+			suggestion = { enabled = false },
+			panel = { enabled = false },
+		}
+	},
+	{ "zbirenbaum/copilot-cmp" },
 }
